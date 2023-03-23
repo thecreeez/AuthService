@@ -13,7 +13,7 @@ class InvitationKeyModel {
             return null;
         }
 
-        let dbKey = await this.db.query("SELECT * FROM `services_keys` WHERE `services_keys`.`invitation_key` = '" + invitationKey + "'");
+        let dbKey = await this.db.query("SELECT * FROM `services_keys` WHERE `services_keys`.`invitation_key` = ?", [invitationKey]);
 
         if (dbKey.length == 0) {
             return false;
@@ -28,7 +28,7 @@ class InvitationKeyModel {
             return null;
         }
 
-        let dbKey = await this.db.query("DELETE FROM `services_keys` WHERE `services_keys`.`invitation_key` = '" + invitationKeyModel.invitation_key +"'");
+        let dbKey = await this.db.query("DELETE FROM `services_keys` WHERE `services_keys`.`invitation_key` = ?", [invitationKeyModel.invitation_key]);
 
         return dbKey;
     }
@@ -48,13 +48,13 @@ class InvitationKeyModel {
             return null;
         }
 
-        let dbCheck = await InvitationKeyModel.db.query("SELECT * FROM `services_keys` WHERE `services_keys`.`invitation_key` = '" + this.invitation_key + "'");
+        let dbCheck = await InvitationKeyModel.db.query("SELECT * FROM `services_keys` WHERE `services_keys`.`invitation_key` = ?", [this.invitation_key]);
 
         if (dbCheck.length > 0) {
             return false;
         }
 
-        return await InvitationKeyModel.db.query("INSERT INTO `services_keys` (`id`, `invitation_key`) VALUES (NULL, '" + this.invitation_key + "');")
+        return await InvitationKeyModel.db.query("INSERT INTO `services_keys` (`id`, `invitation_key`) VALUES (NULL, ?);", [this.invitation_key])
     }
 
     async remove() {
@@ -63,13 +63,13 @@ class InvitationKeyModel {
             return null;
         }
 
-        let dbCheck = await InvitationKeyModel.db.query("SELECT * FROM `services_keys` WHERE `services_keys`.`invitation_key` = '" + this.invitation_key + "'");
+        let dbCheck = await InvitationKeyModel.db.query("SELECT * FROM `services_keys` WHERE `services_keys`.`invitation_key` = ?", [this.invitation_key]);
 
         if (dbCheck.length == 0) {
             return false;
         }
 
-        return await InvitationKeyModel.db.query("DELETE FROM `services_keys` WHERE `services_keys`.`invitation_key` = '"+this.invitation_key+"';")
+        return await InvitationKeyModel.db.query("DELETE FROM `services_keys` WHERE `services_keys`.`invitation_key` = ?", [this.invitation_key])
     }
 }
 

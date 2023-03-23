@@ -12,7 +12,7 @@ class UserModel {
             return null;
         }
 
-        let dbUser = await this.db.query("SELECT * FROM `users` WHERE `users`.`login` = '"+login+"'");
+        let dbUser = await this.db.query("SELECT * FROM `users` WHERE `users`.`login` = ?", [login]);
 
         if (dbUser.length == 0) {
             return null;
@@ -27,7 +27,7 @@ class UserModel {
             return null;
         }
 
-        let dbUser = await this.db.query("SELECT * FROM `users` WHERE `users`.`id` = '" + id + "'");
+        let dbUser = await this.db.query("SELECT * FROM `users` WHERE `users`.`id` = ?", [id]);
 
         if (dbUser.length == 0) {
             return null;
@@ -42,7 +42,7 @@ class UserModel {
             return null;
         }
 
-        let dbUser = await this.db.query("SELECT * FROM `users` WHERE `users`.`login` = '" + login + "'");
+        let dbUser = await this.db.query("SELECT * FROM `users` WHERE `users`.`login` = ?", [login]);
 
         if (dbUser.length == 0) {
             return null;
@@ -63,7 +63,7 @@ class UserModel {
             return null;
         }
 
-        let dbCheck = await UserModel.db.query("SELECT * FROM `users` WHERE `users`.`id` = '" + this.id + "'");
+        let dbCheck = await UserModel.db.query("SELECT * FROM `users` WHERE `users`.`id` = ?", [this.id]);
 
         if (dbCheck.length > 0) {
             return false;
@@ -78,18 +78,19 @@ class UserModel {
             return null;
         }
 
-        let dbCheck = await UserModel.db.query("SELECT * FROM `users` WHERE `users`.`id` = '" + this.id + "'");
+        let dbCheck = await UserModel.db.query("SELECT * FROM `users` WHERE `users`.`id` = ?", [this.id]);
 
         if (dbCheck.length > 0) {
             return false;
         }
 
-        return await UserModel.db.query("INSERT INTO `users` (`id`, `login`, `password`) VALUES (NULL, '" + this.login + "', '" + this.password + "');")
+        return await UserModel.db.query("INSERT INTO `users` (`id`, `login`, `password`) VALUES (NULL, ?, ?);", [this.login, this.password])
     }
 
+    // INSECURE
     async update(field, value) {
         this[field] = value;
-        let dbCheck = await UserModel.db.query("UPDATE `users` SET `" + field + "` = '" + value + "' WHERE `users`.`id` = " + this.id + ";");
+        let dbCheck = await UserModel.db.query("UPDATE `users` SET `" + field + "` = ? WHERE `users`.`id` = ?;", [this.id]);
 
         return dbCheck;
     }
@@ -100,13 +101,13 @@ class UserModel {
             return null;
         }
 
-        let dbCheck = await UserModel.db.query("SELECT * FROM `users` WHERE `users`.`id` = '" + this.id + "'");
+        let dbCheck = await UserModel.db.query("SELECT * FROM `users` WHERE `users`.`id` = ?", [this.id]);
 
         if (dbCheck.length == 0) {
             return false;
         }
 
-        return await UserModel.db.query("DELETE FROM `users` WHERE `users`.`id` = '" + this.id + "';")
+        return await UserModel.db.query("DELETE FROM `users` WHERE `users`.`id` = ?;", [this.id])
     }
 }
 

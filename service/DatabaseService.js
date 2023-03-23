@@ -26,11 +26,11 @@ class Database {
         }
     }
 
-    static async query(sql) {
+    static async query(sql, args) {
         conn = MySQL.createConnection(CFG);
 
         try {
-            const result = await conn.promise().query(sql);
+            const result = await conn.promise().query(sql, args);
 
             await conn.end();
             this.lastConnection = new Date();

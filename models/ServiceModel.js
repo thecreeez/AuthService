@@ -27,7 +27,7 @@ class ServiceModel {
             return null;
         }
 
-        let dbService = await this.db.query("SELECT * FROM `services` WHERE `services`.`token` = '" + token + "'");
+        let dbService = await this.db.query("SELECT * FROM `services` WHERE `services`.`token` = ?", [token]);
 
         if (dbService.length == 0) {
             return false;
@@ -42,7 +42,7 @@ class ServiceModel {
             return null;
         }
 
-        let dbService = await this.db.query("SELECT * FROM `services` WHERE `services`.`token` = '" + token + "'");
+        let dbService = await this.db.query("SELECT * FROM `services` WHERE `services`.`token` = ?", [token]);
 
         if (dbService.length == 0) {
             return false;
@@ -68,7 +68,7 @@ class ServiceModel {
             return null;
         }
 
-        let dbCheck = await ServiceModel.db.query("SELECT * FROM `services` WHERE `services`.`string_id` = '" + this.string_id + "'");
+        let dbCheck = await ServiceModel.db.query("SELECT * FROM `services` WHERE `services`.`string_id` = ?", [this.string_id]);
 
         if (dbCheck.length > 0) {
             return false;
@@ -83,18 +83,19 @@ class ServiceModel {
             return null;
         }
 
-        let dbCheck = await ServiceModel.db.query("SELECT * FROM `services` WHERE `services`.`string_id` = '" + this.string_id + "'");
+        let dbCheck = await ServiceModel.db.query("SELECT * FROM `services` WHERE `services`.`string_id` = ?", [this.string_id]);
 
         if (dbCheck.length > 0) {
             return false;
         }
 
-        return await ServiceModel.db.query("INSERT INTO `services` (`id`, `string_id`, `name`, `token`) VALUES (NULL, '"+this.string_id+"', '"+this.name+"', '"+this.token+"');")
+        return await ServiceModel.db.query("INSERT INTO `services` (`id`, `string_id`, `name`, `token`) VALUES (NULL, ?, ?, ?);", [this.string_id, this.name, this.token])
     }
 
+    // INSECURE
     async update(field, value) {
         this[field] = value;
-        let dbCheck = await ServiceModel.db.query("UPDATE `services` SET `"+field+"` = '"+value+"' WHERE `services`.`id` = "+this.id+";");
+        let dbCheck = await ServiceModel.db.query("UPDATE `services` SET `services`.`"+field+"` = ? WHERE `services`.`id` = ?;", [value, this.id]);
 
         return dbCheck;
     }
@@ -105,13 +106,13 @@ class ServiceModel {
             return null;
         }
 
-        let dbCheck = await ServiceModel.db.query("SELECT * FROM `services` WHERE `services`.`id` = '" + this.id + "'");
+        let dbCheck = await ServiceModel.db.query("SELECT * FROM `services` WHERE `services`.`id` = ?", [this.id]);
 
         if (dbCheck.length == 0) {
             return false;
         }
 
-        return await ServiceModel.db.query("DELETE FROM `services` WHERE `services`.`id` = '" + this.id + "';")
+        return await ServiceModel.db.query("DELETE FROM `services` WHERE `services`.`id` = ?", [this.id]);
     }
 }
 
