@@ -36,6 +36,17 @@ class UserConnectionModel {
         return connections;
     }
 
+    static async removeAllByUserConnection(userConnectionModel) {
+        if (!this.db) {
+            logger.log("Cant remove UserConnections. Database is not initialized.");
+            return null;
+        }
+
+        let dbConnections = await this.db.query("DELETE FROM `users_tokens` WHERE `users_tokens`.`users_id` = '" + userConnectionModel.users_id + "'");
+
+        return dbConnections;
+    }
+
     constructor({ id, users_id, token, service_id }) {
         this.id = id;
         this.users_id = users_id;
