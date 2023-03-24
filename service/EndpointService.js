@@ -4,6 +4,7 @@ let logger = new LoggerInstance("Endpoint");
 import express from "express";
 
 let app = express();
+app.set('view engine', 'ejs')
 
 class EndpointService {
     static start(endpoints, port, authService) {
@@ -47,6 +48,10 @@ class EndpointService {
                     authService: authService
                 });
             });
+        })
+
+        app.get("*", (req,res) => {
+            res.render("index")
         })
 
         app.get("/api/*", (req,res) => {

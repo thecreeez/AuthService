@@ -1,7 +1,7 @@
 export default {
     type: "get",
     rights: 2,
-    description: `Logout all user connections from service.`,
+    description: `Logout all user connections from service. (Requires userToken)`,
     func: async function ({ req, res, authService }) {
         let userToken = req.query.userToken;
 

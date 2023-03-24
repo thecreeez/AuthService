@@ -17,7 +17,7 @@ async function getEndpoints() {
             await import(DEFAULT_ENDPOINTS_FOLDER + "/" + files[i]).then(m => {
                 let module = m.default;
 
-                if (m.default) {
+                if (module) {
                     module.id = fileArgs.join(":");
 
                     if (fileArgs[0] == "system") {
@@ -27,7 +27,7 @@ async function getEndpoints() {
                     module.url = "/" + fileArgs.join("/");
 
                     module.authService = AuthService;
-                    endpoints.push(m.default);
+                    endpoints.push(module);
                 }
             })
         }

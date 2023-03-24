@@ -1,9 +1,0 @@
-{
-    "admin_token": "GJFNJANQKL",
-    "database": {
-        "host": "localhost",
-        "user": "root",
-        "password": "",
-        "database": "auth_service"
-    }
-}

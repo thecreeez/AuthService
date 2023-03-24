@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCZ Auth</title>
+</head>
+<body>
+    <div id="wrapper">
+        <h3>Registration</h3>
+        <input type="text" id="loginInput" placeholder="login"><br><br>
+        <input type="password" id="passwordInput" placeholder="password"><br><br>
+        <button id="submit">Register</button>
+    </div>
+
+    <script>
+        document.getElementById("submit").onclick = async () => {
+            const login = document.getElementById("loginInput").value;
+            const password = document.getElementById("passwordInput").value;
+
+            fetch(`/api/user/register?login=${login}&password=${password}`)
+                .then((res) => res.json())
+                .then((data) => handle(data))
+        }
+
+        function handle(data) {
+            if (data.result == "ok") {
+                alert(data.data);
+            } else {
+                alert(data.reason);
+            }
+        }
+    </script>
+</body>
+</html>

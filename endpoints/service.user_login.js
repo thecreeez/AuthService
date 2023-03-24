@@ -1,7 +1,7 @@
 export default {
     type: "get",
     rights: 2,
-    description: `Create auth token for service and user.`,
+    description: `Create auth token for service and user. (Requires login and password)`,
     func: async function ({ req, res, authService }) {
         let errors = [];
 
