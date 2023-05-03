@@ -1,14 +1,14 @@
 {
   "name": "authservice",
   "version": "1.0.0",
-  "description": "",
+  "description": "Single Sign-On application for pet projects",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "TheCreeeZ",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
